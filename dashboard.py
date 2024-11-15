@@ -1,13 +1,16 @@
 import tkinter as tk
+from components.navigation import create_navigation_bar
 
-def open_dashboard(root):
-    # Maak een nieuw venster voor het dashboard
-    dashboard_window = tk.Toplevel(root)
-    dashboard_window.title("Dashboard")
-    dashboard_window.geometry("300x200")
+class DashboardFrame(tk.Frame):
+    def __init__(self, container, parent):
+        super().__init__(container)
+        self.parent = parent
+        self.create_frame()
 
-    # Dashboard inhoud
-    tk.Label(dashboard_window, text="Je bent ingelogd", font=("Arial", 14)).pack(pady=50)
+    def create_frame(self):
 
-    # Sluitknop voor het dashboard
-    tk.Button(dashboard_window, text="Afsluiten", command=root.quit).pack(pady=10)
+        create_navigation_bar(self, active_tab="Dashboard", navigate_to=self.parent.navigate_to)
+
+        #paragraph with dashboard text
+        dashboard_text = tk.Label(self, text="dit is het dashboard!", font=("Arial", 14))
+        dashboard_text.pack(pady=20)

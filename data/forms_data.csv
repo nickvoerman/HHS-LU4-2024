@@ -1,4 +1,11 @@
 Formulier_ID,Naam,Status,Fouten,Bounce_Rate
-1,Inkomstenbelasting,Ingediend,5,10
-2,Toeslagen,Afgewezen,3,20
-3,Vennootschapsbelasting,Ingediend,8,5
+1,Inkomstenbelasting,Live,5,10
+2,Toeslagen,Afgekeurd,3,20
+3,Vennootschapsbelasting,Live,8,5
+4,Zorgtoeslag,In bewerking,2,15
+5,Huurtoeslag,Afgekeurd,1,25
+6,Kinderopvangtoeslag,Live,0,8
+7,Omzetbelasting,In bewerking,4,30
+8,Scholingsaftrek,Live,6,12
+9,Milieu-investering,Afgekeurd,2,18
+10,Ondernemersaftrek,In bewerking,3,22

@@ -1,33 +1,44 @@
 import tkinter as tk
-from tkinter import messagebox
-from dashboard import open_dashboard
+from dashboard import DashboardFrame
 
-class LoginWindow:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Belastingdienst Login")
-        self.root.geometry("300x200")
+class LoginFrame(tk.Frame):
+    def __init__(self, container, parent):
+        super().__init__(container)
+        self.parent = parent
 
+        self.parent.title("Belastingdienst Dashboard login")
+    
         # Login UI
-        tk.Label(self.root, text="Inloggen", font=("Arial", 14)).pack(pady=10)
+        tk.Label(self, text="Inloggen", font=("Arial", 14)).pack(pady=10)
 
-        tk.Label(self.root, text="Gebruikersnaam:").pack()
-        self.entry_username = tk.Entry(self.root)
+        # Label voor foutmeldingen
+        self.error_label = tk.Label(self, text="", fg="red", font=("Arial", 10))
+        self.error_label.pack()
+
+        # Username label and entry
+        tk.Label(self, text="Gebruikersnaam:").pack()
+        self.entry_username = tk.Entry(self)
         self.entry_username.pack()
 
-        tk.Label(self.root, text="Wachtwoord:").pack()
-        self.entry_password = tk.Entry(self.root, show="*")
+        # Password label and entry
+        tk.Label(self, text="Wachtwoord:").pack()
+        self.entry_password = tk.Entry(self, show="*")
         self.entry_password.pack()
 
-        tk.Button(self.root, text="Login", command=self.verify_login).pack(pady=10)
+        # Login button
+        tk.Button(self, text="Login", command=self.verify_login).pack(pady=10)
 
     def verify_login(self):
+        # Get username and password
         username = self.entry_username.get()
         password = self.entry_password.get()
 
-        # Simpele verificatie met vaste gebruikersnaam en wachtwoord
+        # Simple verification with fixed username and password
         if username == "admin" and password == "password":
-            self.root.withdraw()  # Verberg het inlogvenster
-            open_dashboard(self.root)  # Open het dashboardvenster
+            self.parent.switch_frame(DashboardFrame)  
         else:
-            messagebox.showerror("Fout", "Onjuiste gebruikersnaam of wachtwoord.")
+            self.show_error("Onjuiste gebruikersnaam of wachtwoord.")
+
+    # Show error message in error_label
+    def show_error(self, message):
+        self.error_label.config(text=message)
