@@ -10,7 +10,7 @@ class MainApplication(tk.Tk):
         super().__init__()
 
         self.title("Belastingdienst Dashboard")
-        self.geometry("600x500")
+        self.geometry("670x500")
 
         # Container frame to hold all screens
         container = tk.Frame(self)
@@ -37,10 +37,18 @@ class MainApplication(tk.Tk):
         frame.tkraise()  # This will bring the specified frame to the front
     
     def navigate_to(self, tab):
-        if tab == "Dashboard":
-            self.switch_frame(DashboardFrame)
-        elif tab == "Formulieren":
-            self.switch_frame(FormulierenFrame)
+        # Map tabs to frame classes
+        frame_mapping = {
+            "Dashboard": DashboardFrame,
+            "Login": LoginFrame,
+            "Formulieren": FormulierenFrame
+        }
+        # Get the frame class for the specified tab
+        frame_class = frame_mapping.get(tab)
+        
+        # Switch to the frame if it exists
+        if frame_class:
+            self.switch_frame(frame_class)
 
 if __name__ == "__main__":
     app = MainApplication()
