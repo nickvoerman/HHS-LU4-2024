@@ -19,7 +19,7 @@ class FormulierenFrame(tk.Frame):
     def load_data(self):
         try:
             # Ensure the file is in the correct location
-            df = pd.read_csv('data/forms_data.csv')  
+            df = pd.read_csv('data/forms.csv')  
             return df 
         except FileNotFoundError:
             # Return empty DataFrame if file not found
@@ -34,11 +34,11 @@ class FormulierenFrame(tk.Frame):
 
         # Title label
         title_text = tk.Label(self, text="Formulieren overzicht scherm", font=("Arial", 16, "bold"))  
-        title_text.pack(pady=20)  # Pack title label
+        title_text.pack(pady=20) 
 
         # Create filter frame
         filter_frame = tk.Frame(self)  
-        filter_frame.pack(pady=10)  # Pack filter frame
+        filter_frame.pack(pady=10) 
 
         # Filter label
         filter_label = tk.Label(filter_frame, text="Filter A-Z", cursor="hand2", font=("Arial", 12))  

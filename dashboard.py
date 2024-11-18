@@ -6,56 +6,55 @@ class DashboardFrame(tk.Frame):
     def __init__(self, container, parent):
         super().__init__(container)
         self.parent = parent
-        self.data = self.load_data()  # Laad de gegevens
+        self.data = self.load_data()
         self.create_frame()
 
     def load_data(self):
-        # Laad gegevens uit CSV-bestand met pandas
+        # Load data from CSV file with pandas
         try:
-            df = pd.read_csv('data/forms_data.csv')  # Zorg dat het bestand op de juiste plek staat
+            df = pd.read_csv('data/forms.csv') 
             return df
         except FileNotFoundError:
-            # Als het bestand niet gevonden wordt, maak een lege dataset aan
+            # If the file is not found, create an empty dataset
             return pd.DataFrame({
                 'Bounce_Rate': [0],
                 'Fouten': [0],
                 'Status': []
             })
 
-
     def create_frame(self):
         create_navigation_bar(self, active_tab="Dashboard", navigate_to=self.parent.navigate_to)
 
-    # Paragraaf met dashboard tekst
+        # Paragraph with dashboard text
         dashboard_text = tk.Label(self, text="Dashboard overzicht Scherm", font=("Arial", 16, "bold"))
         dashboard_text.pack(pady=20)
 
-        # Algemene statistieken frame
+        # General statistics frame
         general_stats_frame = tk.Frame(self)
         general_stats_frame.pack(pady=10)
 
-        # Labels voor algemene statistieken met zwarte rand en padding
+        # Labels for general statistics with black border and padding
         tk.Label(general_stats_frame, text="Algemene statistieken", font=("Arial", 14, "bold")).grid(row=0, columnspan=3)
 
-        # Aantal formulieren
+        # Number of forms
         self.create_stat_card(general_stats_frame, "Aantal formulieren: " + str(len(self.data)), 1, 0)
         # Bounce rate
         self.create_stat_card(general_stats_frame, "Bounce rate: " + str(round(self.data['Bounce_Rate'].mean(), 2)), 1, 1)
-        # Aantal foutmeldingen
+        # Number of errors
         self.create_stat_card(general_stats_frame, "Aantal foutmeldingen: " + str(self.data['Fouten'].sum()), 1, 2)
 
-        # Statussen frame
+        # Statuses frame
         status_frame = tk.Frame(self)
         status_frame.pack(pady=10)
 
-        # Labels voor statussen met zwarte rand en padding
+        # Labels for statuses with black border and padding
         tk.Label(status_frame, text="Statussen", font=("Arial", 14, "bold")).grid(row=0, columnspan=3)
 
-        # Live formulieren
+        # Live forms
         self.create_stat_card(status_frame, f"{len(self.data[self.data['Status'] == 'Live'])} formulieren live", 1, 0)
-        # Afgekeurde formulieren
+        # Rejected forms
         self.create_stat_card(status_frame, f"{len(self.data[self.data['Status'] == 'Afgekeurd'])} formulieren afgekeurd", 1, 1)
-        # Formulieren in bewerking
+        # Forms in progress
         self.create_stat_card(status_frame, f"{len(self.data[self.data['Status'] == 'In bewerking'])} formulieren in bewerking", 1, 2)
 
     # Create a stat card

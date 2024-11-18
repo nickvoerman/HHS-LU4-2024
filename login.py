@@ -7,7 +7,7 @@ class LoginFrame(tk.Frame):
         self.parent = parent
 
         # Login UI
-        tk.Label(self, text="Inloggen", font=("Arial", 14)).pack(pady=10)
+        tk.Label(self, text="Inloggen", font=("Arial", 16, "bold")).pack(pady=10)
 
         # Label voor foutmeldingen
         self.error_label = tk.Label(self, text="", fg="red", font=("Arial", 10))
