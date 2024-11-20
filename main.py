@@ -3,6 +3,7 @@ from dashboard import DashboardFrame
 from forms import FormulierenFrame
 from login import LoginFrame
 from reports import ReportFrame
+from changelog import ChangelogFrame
 
 class MainApplication(tk.Tk):
     def __init__(self):
@@ -25,16 +26,27 @@ class MainApplication(tk.Tk):
         self.frames = {}
 
         # Add each screen frame to the dictionary
-        for F in (LoginFrame, DashboardFrame, FormulierenFrame, ReportFrame):
+        for F in (LoginFrame, DashboardFrame, FormulierenFrame, ReportFrame, ChangelogFrame):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
         # Start with the login screen after frames are fully initialized
         self.switch_frame(LoginFrame)
-
+        
+        
+    def update_frame(self, old_frame_class_name, new_frame_instance):
+        #remove old frame class from frames
+        del self.frames[old_frame_class_name]
+        
+        new_frame_instance.grid(row=0, column=0, sticky="nsew")
+        
+        #add new frame class to frames
+        self.frames[new_frame_instance.__class__] = new_frame_instance
+        
     def switch_frame(self, frame_class):
         frame = self.frames[frame_class] 
+        
         # This will bring the specified frame to the front
         frame.tkraise()
     

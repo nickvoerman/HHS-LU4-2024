@@ -1,10 +1,12 @@
 import tkinter as tk
 import pandas as pd
 from components.navigation import create_navigation_bar
+from changelog import ChangelogFrame
 
 class FormulierenFrame(tk.Frame):
     def __init__(self, container, parent):
         super().__init__(container)
+        self.container = container
         self.parent = parent
         
         # Load data from CSV
@@ -141,8 +143,19 @@ class FormulierenFrame(tk.Frame):
         tk.Label(label_frame, text=form_id, width=10).pack(side="left", padx=5)  
 
         # Create buttons for Changelog and View with no action
-        changelog_button = tk.Button(form_row, text="Changelog", command=lambda: None)  
+        changelog_button = tk.Button(form_row, text="Changelog", command=lambda: self.open_changelog(form_id))  
         changelog_button.pack(side="right", padx=5)  
 
         view_button = tk.Button(form_row, text="View", command=lambda: None)  
         view_button.pack(side="right", padx=5)  
+
+    # Open changelog frame
+    def open_changelog(self, form_id):
+        # Create changelog frame with the correct form_id
+        changelog_frame = ChangelogFrame(self.container, self.parent, form_id)
+        
+        # Update the frame with the new changelog frame class
+        self.parent.update_frame(ChangelogFrame, changelog_frame)  # Pass the class, not the instance
+        
+        # Switch to the ChangelogFrame
+        self.parent.switch_frame(changelog_frame)  
