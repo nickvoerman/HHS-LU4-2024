@@ -2,6 +2,7 @@ import tkinter as tk
 import pandas as pd
 from components.navigation import create_navigation_bar
 from changelog import ChangelogFrame
+from form_detail import FormDetailFrame
 
 class FormulierenFrame(tk.Frame):
     def __init__(self, container, parent):
@@ -146,7 +147,7 @@ class FormulierenFrame(tk.Frame):
         changelog_button = tk.Button(form_row, text="Changelog", command=lambda: self.open_changelog(form_id))  
         changelog_button.pack(side="right", padx=5)  
 
-        view_button = tk.Button(form_row, text="View", command=lambda: None)  
+        view_button = tk.Button(form_row, text="View", command=lambda: self.open_form_detail(form_id))  
         view_button.pack(side="right", padx=5)  
 
     # Open changelog frame
@@ -158,4 +159,15 @@ class FormulierenFrame(tk.Frame):
         self.parent.update_frame(ChangelogFrame, changelog_frame)  # Pass the class, not the instance
         
         # Switch to the ChangelogFrame
-        self.parent.switch_frame(changelog_frame)  
+        self.parent.switch_frame(changelog_frame.__class__)  
+
+    # Open form detail frame
+    def open_form_detail(self, form_id):
+        # Create form detail frame with the correct form_id
+        form_detail_frame = FormDetailFrame(self.container, self.parent, form_id)
+        
+        # Update the frame with the new form detail frame class
+        self.parent.update_frame(FormDetailFrame, form_detail_frame)
+        
+        # Switch to the FormDetailFrame
+        self.parent.switch_frame(form_detail_frame.__class__)

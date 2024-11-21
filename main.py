@@ -4,6 +4,7 @@ from forms import FormulierenFrame
 from login import LoginFrame
 from reports import ReportFrame
 from changelog import ChangelogFrame
+from form_detail import FormDetailFrame
 
 class MainApplication(tk.Tk):
     def __init__(self):
@@ -26,7 +27,7 @@ class MainApplication(tk.Tk):
         self.frames = {}
 
         # Add each screen frame to the dictionary
-        for F in (LoginFrame, DashboardFrame, FormulierenFrame, ReportFrame, ChangelogFrame):
+        for F in (LoginFrame, DashboardFrame, FormulierenFrame, ReportFrame, ChangelogFrame, FormDetailFrame):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
