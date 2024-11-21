@@ -69,15 +69,15 @@ class FormDetailFrame(tk.Frame):
         changelog_frame.pack(fill="x", padx=10)
 
         for _, row in self.changelog_data.iterrows():
-            # Maak een apart frame voor elk changelog-item
+            # Create a separate frame for each changelog item
             changelog_item_frame = tk.Frame(changelog_frame, bd=2, relief="solid", padx=5, pady=5)
-            changelog_item_frame.pack(fill="x", pady=5)  # Voeg hier padding toe tussen items
+            changelog_item_frame.pack(fill="x", pady=5)
 
-            # Voeg de tekst toe aan het frame
+            # Add the text to the frame
             changelog_item = tk.Label(changelog_item_frame, text=row['changelog'], font=("Arial", 12), anchor="w")
             changelog_item.pack(fill="x")
 
-        # Knop voor extra veld
+        # Button for extra field
         changelog_button = tk.Button(self, text="Maak extra veld aan", command=lambda: self.open_changelog(self.form_id))
         changelog_button.pack(pady=10)
 

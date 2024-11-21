@@ -2,49 +2,74 @@
 
 Dit project is een grafische gebruikersinterface (GUI) voor het beheren en visualiseren van gegevens met betrekking tot formulieren. Het is gebouwd met behulp van Python en de Tkinter-bibliotheek.
 
-## Inhoud
+## Functionaliteiten
 
-- **MainApplication**: De hoofdklasse die de applicatie beheert en de verschillende frames (schermen) beheert.
-- **LoginFrame**: Het inlogscherm waar gebruikers hun inloggegevens kunnen invoeren.
-- **DashboardFrame**: Het dashboard dat statistieken en gegevens over formulieren toont.
-- **FormulierenFrame**: Een scherm voor het beheren en bekijken van formulieren.
-- **Navigatie**: Een navigatiebalk die gebruikers in staat stelt om tussen verschillende secties van de applicatie te navigeren.
+- **Login Systeem**: Beveiligde toegang met gebruikersnaam/wachtwoord authenticatie
+- **Dashboard**: Overzicht van belangrijke statistieken en metrics
+- **Formulieren Beheer**: Bekijk en beheer formulieren met zoek- en sorteeropties
+- **Rapportages**: Bekijk historische gegevens en trends
+- **Changelog Systeem**: Houd wijzigingen bij per formulier
+
+## Vereisten
+
+- Python 3.x
+- pandas
 
 ## Installatie
 
-1. Zorg ervoor dat je Python 3.x op je systeem hebt geïnstalleerd.
-2. Clone dit repository naar je lokale machine:
+1. Clone de repository:
+
    ```
    git clone <repository-url>
    ```
-3. Navigeer naar de projectdirectory:
+
+2. Navigeer naar de projectdirectory:
+
    ```
    cd HHS-LU4-2024
    ```
-4. Installeer de vereiste pakketten:
+
+3. Installeer de vereiste pakketten:
    ```
    pip install -r requirements.txt
    ```
 
 ## Gebruik
 
-1. Start de applicatie door het volgende commando uit te voeren:
+1. Start de applicatie:
+
    ```
    python main.py
    ```
-2. Voer de standaard inloggegevens in:
+
+2. Log in met de standaard inloggegevens:
+
    - Gebruikersnaam: `admin`
    - Wachtwoord: `password`
-3. Navigeer door de verschillende secties van de applicatie met behulp van de navigatiebalk.
 
-## Bestanden
+3. Navigeer door de applicatie met behulp van de navigatiebalk bovenaan.
 
-- `main.py`: De hoofdingang van de applicatie.
-- `login.py`: Bevat de inlogfunctionaliteit.
-- `dashboard.py`: Bevat de logica voor het dashboard.
-- `forms.py`: Bevat de logica voor het beheren van formulieren.
-- `components/navigation.py`: Bevat de navigatiebalkcomponent.
+## Projectstructuur
 
-## Licentie
+- `main.py`: Hoofdapplicatie en frame management
+- `login.py`: Login systeem en authenticatie
+- `dashboard.py`: Dashboard weergave en statistieken
+- `forms.py`: Formulieren overzicht en beheer
+- `form_detail.py`: Detailweergave van individuele formulieren
+- `changelog.py`: Systeem voor het bijhouden van wijzigingen
+- `reports.py`: Rapportage en analyse functionaliteit
+- `components/`: Herbruikbare UI componenten
+- `data/`: Data bestanden en rapportages
+- `tests/`: Unit tests
 
-Dit project is gelicentieerd onder de MIT-licentie.
+## Data Management
+
+- Formuliergegevens worden opgeslagen in CSV-formaat
+- Wekelijkse rapportages worden automatisch gegenereerd
+- Changelog wordt bijgehouden per formulier
+
+## Testing
+
+Run de unit tests met:
+
+python -m unittest tests.test_application.TestMainApplication

@@ -24,10 +24,6 @@ class LoginFrame(tk.Frame):
         self.entry_password = tk.Entry(self, show="*")
         self.entry_password.pack()
         
-        #fill in the username and password fields with default values for dev purposes
-        self.entry_username.insert(0, "admin")
-        self.entry_password.insert(0, "password")
-
         # Login button
         tk.Button(self, text="Login", command=self.verify_login).pack(pady=10)
         
@@ -39,11 +35,11 @@ class LoginFrame(tk.Frame):
         # Simple verification with fixed username and password
         if username == "admin" and password == "password":
 
-            #clear the entry fields and remove focus 
+            # Clear the entry fields and remove focus 
             self.entry_username.delete(0, tk.END)
             self.entry_password.delete(0, tk.END)
 
-            #focus first field
+            # Focus first field
             self.entry_username.focus()
 
             # Switch to the dashboard frame

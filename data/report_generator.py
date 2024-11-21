@@ -1,4 +1,4 @@
-#This script should be run every week to generate a report of the current state of the forms
+# This script should be run every week to generate a report of the current state of the forms
 import pandas as pd
 from datetime import datetime
 
