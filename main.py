@@ -13,7 +13,7 @@ class MainApplication(tk.Tk):
         super().__init__()
 
         self.title("Belastingdienst Dashboard")
-        self.geometry("670x500")
+        self.geometry("750x500")
 
         # Container frame to hold all screens
         container = tk.Frame(self)

@@ -3,6 +3,7 @@ import pandas as pd
 from components.navigation import create_navigation_bar
 from changelog import ChangelogFrame
 from form_detail import FormDetailFrame
+from tkinter import messagebox
 
 class FormulierenFrame(tk.Frame):
     def __init__(self, container, parent):
@@ -123,32 +124,51 @@ class FormulierenFrame(tk.Frame):
         self.display_forms(sorted_data)  
 
     def create_form_row(self, row):
-        # Get form name
-        form_name = row['Naam']  
-        
-        # Get form ID
-        form_id = row['Formulier_ID']  
+        # Get form name and ID
+        form_name = row['Naam']
+        form_id = row['Formulier_ID']
 
         # Create form row
-        form_row = tk.Frame(self.scrollable_frame, borderwidth=1, relief="solid")  
-        form_row.pack(pady=5, fill="x", padx=10)  
+        form_row = tk.Frame(self.scrollable_frame, borderwidth=1, relief="solid")
+        form_row.pack(pady=5, fill="x", padx=10)
 
         # Create label frame
-        label_frame = tk.Frame(form_row)  
+        label_frame = tk.Frame(form_row)
         label_frame.pack(side="left", fill="x", expand=True)
 
         # Label for form name
-        tk.Label(label_frame, text=form_name, width=30).pack(side="left", padx=5)  
+        tk.Label(label_frame, text=form_name, width=30).pack(side="left", padx=5)
         
         # Label for form ID
-        tk.Label(label_frame, text=form_id, width=10).pack(side="left", padx=5)  
+        tk.Label(label_frame, text=form_id, width=10).pack(side="left", padx=5)
 
-        # Create buttons for Changelog and View with no action
-        changelog_button = tk.Button(form_row, text="Changelog", command=lambda: self.open_changelog(form_id))  
-        changelog_button.pack(side="right", padx=5)  
+        # Create buttons frame for better organization
+        buttons_frame = tk.Frame(form_row)
+        buttons_frame.pack(side="right")
 
-        view_button = tk.Button(form_row, text="View", command=lambda: self.open_form_detail(form_id))  
-        view_button.pack(side="right", padx=5)  
+        # Delete button (new)
+        delete_button = tk.Button(
+            buttons_frame, 
+            text="Delete", 
+            fg="red",
+            command=lambda: self.delete_form(form_id)
+        )
+        delete_button.pack(side="right", padx=5)
+
+        # Existing buttons
+        changelog_button = tk.Button(
+            buttons_frame, 
+            text="Changelog", 
+            command=lambda: self.open_changelog(form_id)
+        )
+        changelog_button.pack(side="right", padx=5)
+
+        view_button = tk.Button(
+            buttons_frame, 
+            text="View", 
+            command=lambda: self.open_form_detail(form_id)
+        )
+        view_button.pack(side="right", padx=5)
 
     # Open changelog frame
     def open_changelog(self, form_id):
@@ -171,3 +191,40 @@ class FormulierenFrame(tk.Frame):
         
         # Switch to the FormDetailFrame
         self.parent.switch_frame(form_detail_frame.__class__)
+
+    def delete_form(self, form_id):
+        # Show confirmation dialog
+        confirm = tk.messagebox.askyesno(
+            "Bevestig verwijdering",
+            f"Weet je zeker dat je formulier {form_id} wilt verwijderen?"
+        )
+        
+        if confirm:
+            try:
+                # Read the current CSV file
+                df = pd.read_csv('data/forms.csv')
+                
+                # Remove the row with the matching form_id
+                df = df[df['Formulier_ID'] != form_id]
+                
+                # Save the updated DataFrame back to CSV
+                df.to_csv('data/forms.csv', index=False)
+                
+                # Update the class's data attribute
+                self.data = df
+                
+                # Refresh the display
+                self.display_forms(self.data)
+                
+                # Show success message
+                tk.messagebox.showinfo(
+                    "Succes",
+                    f"Formulier {form_id} is succesvol verwijderd."
+                )
+                
+            except Exception as e:
+                # Show error message if something goes wrong
+                tk.messagebox.showerror(
+                    "Fout",
+                    f"Er is een fout opgetreden bij het verwijderen van het formulier: {str(e)}"
+                )
