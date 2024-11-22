@@ -44,6 +44,10 @@ class LoginFrame(tk.Frame):
 
             # Switch to the dashboard frame
             self.parent.switch_frame(DashboardFrame)  
+            
+            #hide error message when login is successful
+            self.error_label.config(text="")
+            
         else:
             self.show_error("Onjuiste gebruikersnaam of wachtwoord.")
 
